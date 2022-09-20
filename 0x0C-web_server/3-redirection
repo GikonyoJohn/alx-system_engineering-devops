@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
-# Configure /redirect_me to another page permanently
-apt-get -y install nginx
-echo "Holberton School for the win!" > /usr/share/nginx/html/index.html
-new_string="location /redirect_me {\nrewrite ^/(.*)$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n}\n"
-sed -i "/# Only/ i $new_string" /etc/nginx/sites-available/default
-service nginx restart
+# Script that configures a new Ubuntu machine to respect above requirements
+
+sudo apt-get update
+sudo apt-get install -y nginx
+
+echo "Holberton School" | sudo tee /var/www/html/index.html
+new_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=xJJsoquu70o permanent;"
+sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-enabled/default
+
+sudo service nginx restart
